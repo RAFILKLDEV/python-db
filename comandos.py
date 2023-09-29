@@ -1,41 +1,65 @@
-
-
-criar = '''--sql
-CREATE TABLE CARROS (
-    id INTEGER NOT NULL AUTOINCREMENT,
-    marca TEXT NOT NULL,
-    modelo TEXT NOT NULL,
-    motor TEXT NOT NULL,
-    cor TEXT NOT NULL,
-    PRIMARY KEY (id)
-)
-'''
-
-inserirCarro = '''
-    INSERT INTO CARROS ( marca, modelo, motor, cor) VALUES
-    ('Fiat', 'Uno', 'Motor 1.0', 'Branco')
-    '''
-
-inserirPessoa = '''
-    INSERT INTO PESSOAS (cpf, nome) VALUES
-    (42602156820, 'Ana')
-'''
-
-criarTabelaPessoas = '''
-    CREATE TABLE PESSOAS (
-    id INTEGER NOT NULL,
-    cpf INTEGER NOT NULL,
+criarTabelaPessoa = '''--sql
+    CREATE TABLE PESSOA (
+    id_pessoa INTEGER NOT NULL,
     nome TEXT NOT NULL,
-    UNIQUE (cpf),
-    PRIMARY KEY (id)
-)
+    cpf INTEGER NOT NULL,
+    PRIMARY KEY (id_pessoa)
+    )
 '''
 
-deletePessoas = '''
-    DROP TABLE PESSOAS
+criarTabelaLista = '''--sql
+    CREATE TABLE LISTA (
+    id_lista INTEGER NOT NULL,
+    nome TEXT NOT NULL,
+    id_anime INTEGER,
+    id_pessoa INTEGER,
+    FOREIGN KEY (id_anime) REFERENCES ANIME (id_anime),
+    FOREIGN KEY (id_pessoa) REFERENCES PESSOA (id_pessoa),
+    PRIMARY KEY (id_lista)
+    )
 '''
 
-join = '''
-    SELECT * FROM PESSOAS
-    INNER JOIN CARROS USING(id)
+criarTabelaAnime = '''--sql
+    CREATE TABLE ANIME (
+    id_anime INTEGER NOT NULL,
+    nome TEXT NOT NULL,
+    lancamento INTEGER NOT NULL,
+    id_estudio INTEGER,
+    FOREIGN KEY (id_estudio) REFERENCES ESTUDIO (id_estudio),
+    PRIMARY KEY (id_anime)
+    )
+'''
+
+criarTabelaEstudio = '''--sql
+    CREATE TABLE ESTUDIO (
+    id_estudio INTEGER NOT NULL,
+    nome TEXT NOT NULL,
+    diretor TEXT NOT NULL,
+    PRIMARY KEY (id_estudio)
+    )
+'''
+
+addEstudio = '''--sql
+    INSERT INTO ESTUDIO (nome, diretor) VALUES (
+    "MADHOUSE", "Masao Maruyama"
+    )
+
+'''
+
+addAnime = '''--sql
+    INSERT INTO ANIME (nome, lancamento, id_estudio) VALUES (
+    "Hunter x Hunter", 2011, 1
+    )
+'''
+
+addPessoa = '''--sql
+    INSERT INTO PESSOA (nome, cpf) VALUES (
+    "RAFAEL ALMEIDA PENHA", 42602156809
+    )
+'''
+
+addLista = '''--sql
+    INSERT INTO LISTA (nome, id_anime, id_pessoa) VALUES (
+    "ANIMES LEGAIS", 1, 1
+    )
 '''
